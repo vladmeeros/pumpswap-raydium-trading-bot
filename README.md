@@ -1,74 +1,227 @@
-<!-- fallback_TokenVault_20260207082913_56551 -->
+# 🚀 Raydium Pumpswap Trading Bot
 
-# TokenVault: Self-healing, AI-driven, decentralized security orchestration powered by blockchain and multi-factor authentication within the TokenVault framework Implementation
-> Advanced python solution leveraging modern architecture patterns and cutting-edge technology.
+[![Rust](https://img.shields.io/badge/Rust-1.70+-orange.svg)](https://www.rust-lang.org/)
+[![Solana](https://img.shields.io/badge/Solana-2.2+-purple.svg)](https://solana.com/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)](https://github.com/vladmeeros/pumpswap-raydium-trading-bot)
 
-Self-healing, AI-driven, decentralized security orchestration powered by blockchain and multi-factor authentication within the TokenVault framework.
+> **⚡ High-Performance Solana Trading Bot for Raydium & PumpSwap DEXs**
 
-TokenVault is designed to provide developers and professionals with a robust, efficient, and scalable solution for their python development needs. This implementation focuses on performance, maintainability, and ease of use, incorporating industry best practices and modern software architecture patterns.
+A lightning-fast, Rust-powered trading bot designed to execute trades on Solana's most popular decentralized exchanges. Built with performance, reliability, and profitability in mind.
 
-The primary purpose of TokenVault is to streamline development workflows and enhance productivity through innovative features and comprehensive functionality. Whether you're building enterprise applications, data processing pipelines, or interactive systems, TokenVault provides the foundation you need for successful project implementation.
+## 🌟 Features
 
-TokenVault's key benefits include:
+- **🚀 Ultra-Fast Execution**: Built in Rust for maximum performance and minimal latency
+- **🎯 Multi-DEX Support**: Simultaneously monitors Raydium and PumpSwap for optimal opportunities
+- **⚡ Real-Time Monitoring**: GRPC-based transaction streaming for instant market reaction
+- **🛡️ Smart Filtering**: Advanced blacklist and enemy list management
+- **💰 Slippage Protection**: Configurable slippage tolerance and price impact analysis
+- **📊 Comprehensive Logging**: Detailed transaction logs and performance metrics
+- **🔐 Secure**: Private key management and transaction signing
+- **📈 Price Oracle Integration**: Real-time price feeds for accurate decision making
 
-* **High-performance architecture**: Leveraging optimized algorithms and efficient data structures for maximum performance.
-* **Modern development patterns**: Implementing contemporary software engineering practices and design patterns.
-* **Comprehensive testing**: Extensive test coverage ensuring reliability and maintainability.
+## 🏗️ Architecture
 
-# Key Features
+```
+src/
+├── module/
+│   ├── filter/          # Trading filters and validation
+│   ├── handler/         # Transaction handling logic
+│   ├── monitor/         # Account and transaction monitoring
+│   └── tx_confirm/      # Transaction confirmation
+├── utils/
+│   ├── build_tx/        # Transaction building utilities
+│   ├── fast_landing_api/ # MEV protection and fast execution
+│   ├── pumpswap/        # PumpSwap integration
+│   └── token/           # Token utilities and price impact
+└── config/              # Configuration management
+```
 
-* **Clean and modular Python architecture**: Advanced implementation with optimized performance and comprehensive error handling.
-* **Comprehensive error handling and logging**: Advanced implementation with optimized performance and comprehensive error handling.
-* **Unit testing with pytest framework**: Advanced implementation with optimized performance and comprehensive error handling.
-* **Type hints for better code documentation**: Advanced implementation with optimized performance and comprehensive error handling.
-* **Command-line interface support**: Advanced implementation with optimized performance and comprehensive error handling.
+## 🚀 Quick Start
 
-# Technology Stack
+### Prerequisites
 
-* **Python**: Primary development language providing performance, reliability, and extensive ecosystem support.
-* **Modern tooling**: Utilizing contemporary development tools and frameworks for enhanced productivity.
-* **Testing frameworks**: Comprehensive testing infrastructure ensuring code quality and reliability.
+- **Rust 1.70+** - [Install Rust](https://rustup.rs/)
+- **Solana CLI 2.2+** - [Install Solana](https://docs.solana.com/cli/install-solana-cli-tools)
+- **Solana Wallet** with SOL for transaction fees
 
-# Installation
+### Installation
 
-To install TokenVault, follow these steps:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/vladmeeros/pumpswap-raydium-trading-bot.git
+   cd pumpswap-raydium-trading-bot
+   ```
 
-1. Clone the repository:
+2. **Install dependencies**
+   ```bash
+   cargo build --release
+   ```
 
+3. **Configure environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-2. Follow the installation instructions in the documentation for your specific environment.
+4. **Run the bot**
+   ```bash
+   # Start the main trading bot
+   make main
+   
+   # Or use cargo directly
+   cargo run --bin main --release
+   ```
 
-# Configuration
+## ⚙️ Configuration
 
-TokenVault supports various configuration options to customize behavior and optimize performance for your specific use case. Configuration can be managed through environment variables, configuration files, or programmatic settings.
+Create a `.env` file with your configuration:
 
-## # Configuration Options
+```env
+# Solana RPC and GRPC endpoints
+RPC_URL=https://mainnet.helius-rpc.com
+GRPC_URL=https://mainnet.rpc.jito.wtf
 
-The following configuration parameters are available:
+# Your wallet private key (base58 encoded)
+PRIVATE_KEY=your_private_key_here
 
-* **Verbose Mode**: Enable detailed logging for debugging purposes
-* **Output Format**: Customize the output format (JSON, CSV, XML)
-* **Performance Settings**: Adjust memory usage and processing threads
-* **Network Settings**: Configure timeout and retry policies
+# Trading parameters
+SLIPPAGE_TOLERANCE=0.5
+MAX_PRICE_IMPACT=2.0
+```
 
-# Contributing
+## 🎯 Usage
 
-Contributions to TokenVault are welcome and appreciated! We value community input and encourage developers to help improve this project.
+### Main Trading Bot
+```bash
+# Start the main trading bot
+make main
+```
 
-## # How to Contribute
+### Pre-start Setup
+```bash
+# Initialize pools and tokens
+make pre
+```
 
-1. Fork the TokenVault repository.
-2. Create a new branch for your feature or fix.
-3. Implement your changes, ensuring they adhere to the project's coding standards and guidelines.
-4. Submit a pull request, providing a detailed description of your changes.
+### Health Check
+```bash
+# Check bot connectivity
+make ping
+```
 
-## # Development Guidelines
+### Signature Verification
+```bash
+# Verify transaction signatures
+make sig
+```
 
-* Follow the existing code style and formatting conventions
-* Write comprehensive tests for new features
-* Update documentation when adding new functionality
-* Ensure all tests pass before submitting your pull request
+## 🔧 Advanced Configuration
 
-# License
+### Pool Configuration
+Edit `src/assets/inputs/pool_addr.json` to configure trading pools:
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/szenled/TokenVault/blob/main/LICENSE) file for details.
+```json
+{
+  "pools": [
+    {
+      "address": "pool_address_here",
+      "token_a": "token_a_mint",
+      "token_b": "token_b_mint",
+      "fee": 0.25
+    }
+  ]
+}
+```
+
+### Blacklist Management
+Configure `src/assets/inputs/black_list.json` to exclude specific addresses:
+
+```json
+[
+  "address_to_exclude_1",
+  "address_to_exclude_2"
+]
+```
+
+## 📊 Performance Features
+
+- **⚡ Sub-second execution** for time-sensitive trades
+- **🔄 Real-time market monitoring** via Solana GRPC streams
+- **📈 MEV protection** through multiple RPC endpoints
+- **💾 Efficient memory management** for 24/7 operation
+- **🔍 Advanced transaction filtering** to avoid unwanted trades
+
+## 🛡️ Security Features
+
+- **🔐 Secure private key handling**
+- **🛡️ Transaction validation and verification**
+- **🚫 Blacklist and enemy list protection**
+- **⚖️ Slippage and price impact safeguards**
+- **📝 Comprehensive audit logging**
+
+## 📈 Trading Strategies
+
+The bot implements several advanced trading strategies:
+
+1. **Arbitrage Detection**: Identify price differences between DEXs
+2. **MEV Protection**: Fast execution to avoid front-running
+3. **Slippage Management**: Dynamic slippage adjustment based on market conditions
+4. **Risk Management**: Configurable stop-loss and position sizing
+
+## 🔍 Monitoring & Logs
+
+The bot provides comprehensive logging and monitoring:
+
+- **Real-time transaction logs** in `src/assets/logs/`
+- **Trade history** tracking for performance analysis
+- **Account monitoring** for balance changes
+- **Performance metrics** and execution statistics
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+### Development Setup
+```bash
+# Install development dependencies
+cargo install cargo-watch
+
+# Run with hot reload
+cargo watch -x run --bin main
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## ⚠️ Disclaimer
+
+**This software is for educational and research purposes only. Trading cryptocurrencies involves substantial risk and may result in the loss of your capital. Use at your own risk.**
+
+- Past performance does not guarantee future results
+- Always test with small amounts first
+- Never invest more than you can afford to lose
+- Consider consulting with a financial advisor
+
+## 📞 Support
+
+- **Twitter**: [Twitter](https://x.com/vladmeer67)
+- **Telegram**: [Telegram](https://t.me/vladmeer67)
+
+## 🙏 Acknowledgments
+
+- **Solana Labs** for the amazing blockchain platform
+- **Raydium** for the DEX infrastructure
+- **PumpSwap** for additional trading opportunities
+- **Rust Community** for the excellent language and ecosystem
+
+---
+
+<div align="center">
+
+**⭐ If this project helps you, please give it a star! ⭐**
+
+Made with ❤️ by the Solana Trading Community
+
+</div>
